@@ -1,4 +1,3 @@
-import * as THREE from "three";
 import { exportStateStringAsURL, loadStateString } from "../util.js";
 import { ArcheryState } from "./ArcheryState.js";
 import { world } from "./world.js";

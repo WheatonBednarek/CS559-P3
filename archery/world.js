@@ -3,7 +3,7 @@ import { World } from '../World.js';
 import { CameraControls } from '../CameraControls.js';
 import { WorldObject } from '../WorldObject.js';
 import { SkyBox } from './SkyBox.js';
-import { LOAD_TEXTURES } from '../constants.js';
+import { Ground } from './Ground.js';
 
 export const world = new World();
 world.camera.position.z = 1;
@@ -19,10 +19,11 @@ class Cube extends WorldObject {
 	}
 
 	tick(time, dt) {
-		// this.object.rotation.x = time / 2000;
-		// this.object.rotation.y = time / 1000;
+		this.object.rotation.x = time / 2000;
+		this.object.rotation.y = time / 1000;
 	}
 }
 
 world.addObject(new Cube());
-world.addObject(new SkyBox())
+world.addObject(new SkyBox());
+world.addObject(new Ground());
