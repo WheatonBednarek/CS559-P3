@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { WorldObject } from "../WorldObject.js";
 
 export class Arrow extends WorldObject {
+	static START_Z = 0;
+
 	constructor() {
 		super();
 
@@ -37,6 +39,20 @@ export class Arrow extends WorldObject {
 		arrow.rotateX(-Math.PI/2);
 		arrow.translateY(-.06);
 		this.object.add(arrow);
+		this.object.position.z = Arrow.START_Z;
+	}
+
+	spawnTime = -1;
+	tick(time) {
+		if(this.spawnTime < 0) {
+			this.spawnTime = time;
+		} else {
+			const secondsAlive = (time - this.spawnTime)/1000;
+			this.object.position.z = Math.max(
+				-1,
+				secondsAlive * -1 + Arrow.START_Z
+			);
+		}
 	}
 }
 
