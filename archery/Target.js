@@ -14,6 +14,7 @@ export class Target extends WorldObject {
 			baseMaterial
 		);
 		stand.translateX(-.2);
+		stand.translateY(-.1);
 		this.object.add(stand);
 		const stand2 = stand.clone();
 		stand2.translateX(.4);
@@ -92,7 +93,6 @@ export class Target extends WorldObject {
 			new THREE.BoxGeometry(.5, .5, .15),
 			materials
 		);
-		target.translateY(.1);
 		this.object.add(target);
 	}
 }

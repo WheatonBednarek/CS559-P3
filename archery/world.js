@@ -5,16 +5,26 @@ import { WorldObject } from '../WorldObject.js';
 import { SkyBox } from './SkyBox.js';
 import { Ground } from './Ground.js';
 import { Target } from './Target.js';
+import { Arrow, getArrowPos } from './Arrow.js';
 
 export const world = new World();
 world.camera.position.y = .45;
 world.addObject(new CameraControls(world.camera, world.renderer));
+world.camera.rotation.set(0, 0, 0);
 
 world.addObject(new SkyBox());
 world.addObject(new Ground());
 
 const target = new Target();
-target.object.translateY(.35);
-target.object.translateZ(-1);
+target.object.translateY(0.45);
+target.object.translateZ(-1 - (.15/2));
 world.addObject(target);
-world.camera.lookAt(target.object.position);
+
+document.onclick = (event) => {
+	const { x, y} = event;
+	const { pos, score } = getArrowPos(x, y);
+	const arrow = new Arrow();
+	arrow.object.position.add(pos);
+	console.log(score);
+	world.addObject(arrow);
+}
