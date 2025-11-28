@@ -1,0 +1,43 @@
+body {
+	margin: 0px;
+}
+
+* {
+	--background-color: rgba(143, 180, 167, 0.626);
+	--contrast-color: rgb(172, 123, 0);
+}
+
+#topbar {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	gap: .6rem;
+	padding: .6rem;
+	background-color: var(--background-color);
+	border: 3px groove var(--background-color);
+	top: 0px;
+	left: 50%;
+	transform: translateX(-50%);
+
+	text-align: center;
+	font-family: "Mulish", sans-serif;
+	font-size: 2rem;
+	color: var(--contrast-color);
+}
+
+#scorebar {
+	display: flex;
+	gap: .6rem;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+#player1-score, #player2-score {
+	padding: .6rem;
+	border: 3px groove var(--background-color);
+}
+
+#player1-score.active-player,
+#player2-score.active-player {
+	border-color: var(--contrast-color);
+}

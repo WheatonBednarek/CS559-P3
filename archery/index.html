@@ -4,8 +4,25 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Archery</title>
+	<link href="index.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
+	<div id="topbar">
+		<div>
+			Round <span id="round">1</span>
+		</div>
+		<div id="scorebar">
+			<div id="player1-score">
+				0
+			</div>
+			<div id="player2-score">
+				0
+			</div>
+		</div>
+	</div>
 </body>
 <script type="importmap">
 	{
@@ -14,10 +31,5 @@
 		}
 	}
 </script>
-<style>
-	body {
-		margin: 0px;
-	}
-</style>
 <script src="index.js" type="module"></script>
 </html>

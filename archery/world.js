@@ -6,6 +6,7 @@ import { SkyBox } from './SkyBox.js';
 import { Ground } from './Ground.js';
 import { Target } from './Target.js';
 import { Arrow, getArrowPos } from './Arrow.js';
+import { state } from './ArcheryState.js';
 
 export const world = new World();
 world.camera.position.y = .45;
@@ -25,6 +26,6 @@ document.onclick = (event) => {
 	const { pos, score } = getArrowPos(x, y);
 	const arrow = new Arrow();
 	arrow.object.position.add(pos);
-	console.log(score);
+	state.shot(score);
 	world.addObject(arrow);
 }
