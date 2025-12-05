@@ -4,7 +4,7 @@ import { WorldObject } from "../WorldObject.js";
 export class Arrow extends WorldObject {
 	static START_Z = 0;
 
-	constructor() {
+	constructor(camera) {
 		super();
 
 		const arrow = new THREE.Group();
@@ -40,6 +40,7 @@ export class Arrow extends WorldObject {
 		arrow.translateY(-.06);
 		this.object.add(arrow);
 		this.object.position.z = Arrow.START_Z;
+		this.camera = camera;
 	}
 
 	spawnTime = -1;
@@ -52,6 +53,11 @@ export class Arrow extends WorldObject {
 				-1,
 				secondsAlive * -1 + Arrow.START_Z
 			);
+			if(this.object.position.z > -1) {
+				this.camera.position.z = this.object.position.z + 0.1;
+			} else {
+				this.camera.position.z = Arrow.START_Z + 0.1;
+			}
 		}
 	}
 }

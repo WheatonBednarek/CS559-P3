@@ -24,8 +24,13 @@ world.addObject(target);
 document.onclick = (event) => {
 	const { x, y} = event;
 	const { pos, score } = getArrowPos(x, y);
-	const arrow = new Arrow();
+	const arrow = new Arrow(world.camera);
 	arrow.object.position.add(pos);
 	state.shot(score);
 	world.addObject(arrow);
+	if(state.persistentState.currentPlayer === 1) {
+		document.getElementById("player").innerText = "1";
+	} else {
+		document.getElementById("player").innerText = "2";
+	}
 }
