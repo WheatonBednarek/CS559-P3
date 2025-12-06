@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { WorldObject } from "../WorldObject.js";
 
 export class Arrow extends WorldObject {
-	static START_Z = 0;
+	static START_Z = 1;
 
 	constructor(camera) {
 		super();
@@ -51,12 +51,13 @@ export class Arrow extends WorldObject {
 			const secondsAlive = (time - this.spawnTime)/1000;
 			this.object.position.z = Math.max(
 				-1,
-				secondsAlive * -1 + Arrow.START_Z
+				(secondsAlive+1)**2 * -1 + Arrow.START_Z
 			);
-			if(this.object.position.z > -1) {
-				this.camera.position.z = this.object.position.z + 0.1;
+			if(secondsAlive < 1.5) {
+				this.camera.position.set(this.object.position.x, this.object.position.y + .1, this.object.position.z + .5);
 			} else {
-				this.camera.position.z = Arrow.START_Z + 0.1;
+				this.camera.position.set(0, .45, 0);
+				this.tick = ()=>{};
 			}
 		}
 	}
