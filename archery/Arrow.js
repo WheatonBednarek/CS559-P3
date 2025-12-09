@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { WorldObject } from "../WorldObject.js";
+import { state } from './ArcheryState.js';
 
 export class Arrow extends WorldObject {
 	static START_Z = 1;
@@ -79,4 +80,22 @@ export function getArrowPos(screenX, screenY) {
 	const distance = Math.sqrt(xNorm**2 + yNorm**2);
 	const score = Math.max(10 - Math.floor(distance * 10), 0);
 	return { pos, score };
+}
+
+export function shoot(xNorm, yNorm, world) {
+	const arrow = new Arrow(world.camera);
+	const pos = new THREE.Vector3(0, .45, -1);
+	const TARGET_RADIUS = (.45/.5)*.25;
+	pos.x += xNorm * TARGET_RADIUS;
+	pos.y += yNorm * TARGET_RADIUS;
+	const distance = Math.sqrt(xNorm**2 + yNorm**2);
+	const score = Math.max(10 - Math.floor(distance * 10), 0);
+	arrow.object.position.add(pos);
+	state.shot(score);
+	world.addObject(arrow);
+	if(state.persistentState.currentPlayer === 1) {
+		document.getElementById("player").innerText = "1";
+	} else {
+		document.getElementById("player").innerText = "2";
+	}
 }
