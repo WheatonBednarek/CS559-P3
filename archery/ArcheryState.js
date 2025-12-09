@@ -8,7 +8,9 @@ export class ArcheryState extends State {
 		currentPlayer: 0,
 		round: 0,
 		player1Score: 0,
-		player2Score: 0
+		player2Score: 0,
+		windDir: 0,
+		windMag: 0
 	}
 
 	lazyState = {
@@ -23,7 +25,9 @@ export class ArcheryState extends State {
 				currentPlayer: 1,
 				round: 1,
 				player1Score: 0,
-				player2Score: 0
+				player2Score: 0,
+				windDir: Math.random() * Math.PI * 2,
+				windMag: Math.random()
 			}
 		}
 		this.onUpdate({...this.persistentState, ...this.lazyState});
@@ -47,6 +51,8 @@ export class ArcheryState extends State {
 				this.persistentState.round++;
 			}
 		}
+		this.persistentState.windDir = Math.random() * 2 * Math.PI;
+		this.persistentState.windMag = this.persistentState.round * Math.max(Math.random(), .25);
 		this.onUpdate({...this.persistentState, ...this.lazyState});
 	}
 } 

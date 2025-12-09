@@ -5,10 +5,13 @@ import { state } from './ArcheryState.js';
 
 state.registerOnUpdate(s => {
 	Shooter.timeLimit = (4 - s.round) * 1000;
-	console.log(Shooter.timeLimit);
+	Shooter.windMag = s.windMag;
+	Shooter.windDir = s.windDir;
 });
 export class Shooter extends WorldObject {
 	static timeLimit;
+	static windMag;
+	static windDir;
 	constructor(world) {
 		super();
 		this.currPos = {x: 0, y: 0};
@@ -21,7 +24,7 @@ export class Shooter extends WorldObject {
 			this.mouseDownTime = Date.now();
 			this.timeout = setTimeout(() => {
 				this.mouseDown = false;
-				shoot(this.currPos.x, this.currPos.y, world);
+				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
 			}, Shooter.timeLimit);
 		}
 		const pixNorm = (window.innerHeight = window.innerWidth) / 10;
@@ -41,7 +44,7 @@ export class Shooter extends WorldObject {
 		document.onmouseup = event => {
 			if(this.mouseDown){
 				this.mouseDown = false;
-				shoot(this.currPos.x, this.currPos.y, world);
+				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
 				this.currPos = {x: 0, y: 0};
 				clearTimeout(this.timeout);
 			}

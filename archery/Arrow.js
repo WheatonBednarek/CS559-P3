@@ -82,12 +82,18 @@ export function getArrowPos(screenX, screenY) {
 	return { pos, score };
 }
 
-export function shoot(xNorm, yNorm, world) {
+export function shoot(xNorm, yNorm, world, windMag, windDir) {
+	const windVector = new THREE.Vector3();
+	windVector.setFromCylindricalCoords(windMag, windDir, 0)
+	windVector.y = windVector.z;
+	windVector.z = 0;
+	windVector.multiplyScalar(.05);
 	const arrow = new Arrow(world.camera);
 	const pos = new THREE.Vector3(0, .45, -1);
 	const TARGET_RADIUS = (.45/.5)*.25;
 	pos.x += xNorm * TARGET_RADIUS;
 	pos.y += yNorm * TARGET_RADIUS;
+	pos.add(windVector);
 	const distance = Math.sqrt(xNorm**2 + yNorm**2);
 	const score = Math.max(10 - Math.floor(distance * 10), 0);
 	arrow.object.position.add(pos);

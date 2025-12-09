@@ -41,3 +41,9 @@ body {
 #player2-score.active-player {
 	border-color: var(--contrast-color);
 }
+
+#windBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
