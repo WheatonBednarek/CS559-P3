@@ -1,34 +1,50 @@
 import * as THREE from 'three';
 import { WorldObject } from "../WorldObject.js";
 import { shoot } from './Arrow.js';
+import { state } from './ArcheryState.js';
 
+state.registerOnUpdate(s => {
+	Shooter.timeLimit = (4 - s.round) * 1000;
+	console.log(Shooter.timeLimit);
+});
 export class Shooter extends WorldObject {
+	static timeLimit;
 	constructor(world) {
 		super();
 		this.currPos = {x: 0, y: 0};
 		this.mouseDown = false;
+		this.mouseDownTime = -1;
+		this.timeout = -1;
 		document.onmousedown = event => {
 			this.currPos = { x: 0, y: 0 };
 			this.mouseDown = true;
+			this.mouseDownTime = Date.now();
+			this.timeout = setTimeout(() => {
+				this.mouseDown = false;
+				shoot(this.currPos.x, this.currPos.y, world);
+			}, Shooter.timeLimit);
 		}
 		const pixNorm = (window.innerHeight = window.innerWidth) / 10;
 
 		const movementModifier = 5;
 		document.onmousemove = event => {
 			if (this.mouseDown) {
+				const timeElapsed = (Date.now() - this.mouseDownTime)/1000;
+				const mod = 1 / (2*timeElapsed + 1);
 				const relX = event.movementX / pixNorm;
 				const relY = event.movementY / pixNorm;
-				this.currPos.x += relX;
-				this.currPos.y += -relY;
-				console.log(relX, relY);
+				this.currPos.x += relX * mod;
+				this.currPos.y += -relY * mod;
 			}
 		}
 
 		document.onmouseup = event => {
-			this.mouseDown = false;
-			console.log(this.currPos);
-			shoot(this.currPos.x, this.currPos.y, world);
-			this.currPos = {x: 0, y: 0}
+			if(this.mouseDown){
+				this.mouseDown = false;
+				shoot(this.currPos.x, this.currPos.y, world);
+				this.currPos = {x: 0, y: 0};
+				clearTimeout(this.timeout);
+			}
 		}
 
 		const material = new THREE.MeshBasicMaterial({ color: 'black' });
@@ -51,5 +67,7 @@ export class Shooter extends WorldObject {
 		this.object.position.setX(this.currPos.x * .225);
 		this.object.position.setY(this.currPos.y * .225 + .45);
 		this.object.visible = this.mouseDown;
+		const scalar = Math.min(1, (Shooter.timeLimit - (Date.now() - this.mouseDownTime))/1000)
+		this.object.scale.set(scalar, scalar, scalar);
 	}
 }
