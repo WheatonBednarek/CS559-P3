@@ -21,7 +21,7 @@ state.registerOnUpdate(state => {
 		htmlElements.player1Score.classList = '';
 		htmlElements.player2Score.classList = 'active-player';
 	}
-	htmlElements.windMag.innerText = state.windMag.toPrecision(4);
+	htmlElements.windMag.innerText = state.windMag.toPrecision(2);
 	htmlElements.windDir.innerHTML = `&#8593;`; // ↑ arrow
 	htmlElements.windDir.style.transform = `rotate(${state.windDir}rad)`;
 	htmlElements.windDir.style.display = "inline-block";
