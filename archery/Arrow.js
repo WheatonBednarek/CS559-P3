@@ -95,7 +95,7 @@ export function shoot(xNorm, yNorm, world, windMag, windDir) {
 	pos.y += yNorm * TARGET_RADIUS;
 	pos.add(windVector);
 	const distance = Math.sqrt(xNorm**2 + yNorm**2);
-	const score = Math.max(10 - Math.floor(distance * 10), 0);
+	const score = Math.max(10 - Math.floor(distance * 11.1111), 0);
 	arrow.object.position.add(pos);
 	state.shot(score);
 	world.addObject(arrow);

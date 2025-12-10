@@ -8,7 +8,7 @@ export function clearListeners() {
 		document.removeEventListener('pointerdown', l);
 		document.removeEventListener('pointermove', l);
 		document.removeEventListener('pointerup', l);
-	})
+	});
 }
 const listeners = [];
 
@@ -16,25 +16,34 @@ export class Shooter extends WorldObject {
 	static timeLimit;
 	static windMag;
 	static windDir;
+	static canShoot = true;
 	constructor(world) {
 		super();
 		this.currPos = {x: 0, y: 0};
 		this.mouseDown = false;
 		this.mouseDownTime = -1;
 		this.timeout = -1;
+		function lockShoot() {
+			Shooter.canShoot = false;
+			setTimeout(() => Shooter.canShoot = true, 1500);
+		}
+
 		const onDown = event => {
+			if(!Shooter.canShoot) return;
 			this.currPos = { x: 0, y: 0 };
 			this.mouseDown = true;
 			this.mouseDownTime = Date.now();
 			this.timeout = setTimeout(() => {
 				this.mouseDown = false;
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
+				lockShoot();
 			}, Shooter.timeLimit);
 			event.preventDefault();
 		};
 		const pixNorm = (window.innerHeight + window.innerWidth) / 10;
 
 		const onMove = event => {
+			if(!Shooter.canShoot) return;
 			if (this.mouseDown) {
 				const timeElapsed = (Date.now() - this.mouseDownTime)/1000;
 				const mod = 1 / (3*timeElapsed + 1);
@@ -47,9 +56,11 @@ export class Shooter extends WorldObject {
 		};
 
 		const onUp = event => {
+			if(!Shooter.canShoot) return;
 			if(this.mouseDown){
 				this.mouseDown = false;
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
+				lockShoot();
 				this.currPos = {x: 0, y: 0};
 				clearTimeout(this.timeout);
 			}
