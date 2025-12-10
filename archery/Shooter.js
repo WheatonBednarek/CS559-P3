@@ -3,11 +3,15 @@ import { WorldObject } from "../WorldObject.js";
 import { shoot } from './Arrow.js';
 import { state } from './ArcheryState.js';
 
-state.registerOnUpdate(s => {
-	Shooter.timeLimit = (4 - s.round) * 1000;
-	Shooter.windMag = s.windMag;
-	Shooter.windDir = s.windDir;
-});
+export function clearListeners() {
+	listeners.forEach( l => {
+		document.removeEventListener('pointerdown', l);
+		document.removeEventListener('pointermove', l);
+		document.removeEventListener('pointerup', l);
+	})
+}
+const listeners = [];
+
 export class Shooter extends WorldObject {
 	static timeLimit;
 	static windMag;
@@ -18,7 +22,7 @@ export class Shooter extends WorldObject {
 		this.mouseDown = false;
 		this.mouseDownTime = -1;
 		this.timeout = -1;
-		document.addEventListener('pointerdown', event => {
+		const onDown = event => {
 			this.currPos = { x: 0, y: 0 };
 			this.mouseDown = true;
 			this.mouseDownTime = Date.now();
@@ -27,11 +31,10 @@ export class Shooter extends WorldObject {
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
 			}, Shooter.timeLimit);
 			event.preventDefault();
-		});
+		};
 		const pixNorm = (window.innerHeight + window.innerWidth) / 10;
 
-		const movementModifier = 5;
-		document.addEventListener('pointermove', event => {
+		const onMove = event => {
 			if (this.mouseDown) {
 				const timeElapsed = (Date.now() - this.mouseDownTime)/1000;
 				const mod = 1 / (3*timeElapsed + 1);
@@ -41,9 +44,9 @@ export class Shooter extends WorldObject {
 				this.currPos.y += -relY * mod;
 			}
 			event.preventDefault();
-		});
+		};
 
-		document.addEventListener('pointerup', event => {
+		const onUp = event => {
 			if(this.mouseDown){
 				this.mouseDown = false;
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
@@ -51,7 +54,12 @@ export class Shooter extends WorldObject {
 				clearTimeout(this.timeout);
 			}
 			event.preventDefault();
-		});
+		};
+
+		listeners.push(onDown, onMove, onUp);
+		document.addEventListener('pointerdown', onDown);
+		document.addEventListener('pointermove', onMove);
+		document.addEventListener('pointerup', onUp);
 
 		const material = new THREE.MeshBasicMaterial({ color: 'black' });
 		const size = .05;

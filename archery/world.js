@@ -12,6 +12,11 @@ import { Shooter } from './Shooter.js';
 export const world = new World();
 world.camera.position.y = .45;
 // world.addObject(new CameraControls(world.camera, world.renderer));
+state.registerOnUpdate(s => {
+	Shooter.timeLimit = (4 - s.round) * 1000;
+	Shooter.windMag = s.windMag;
+	Shooter.windDir = s.windDir;
+});
 world.addObject(new Shooter(world));
 world.camera.rotation.set(0, 0, 0);
 

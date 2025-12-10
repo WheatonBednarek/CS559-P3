@@ -1,4 +1,5 @@
 import { State } from "../State.js";
+import { clearListeners } from "./Shooter.js";
 
 /**
  * @implements {State}
@@ -50,6 +51,8 @@ export class ArcheryState extends State {
 			if(this.persistentState.currentPlayer === 1) {
 				this.persistentState.round++;
 			}
+			clearListeners();
+			setTimeout(() => document.getElementById('blackout').style.display= '', 1500);
 		}
 		this.persistentState.windDir = Math.random() * 2 * Math.PI;
 		this.persistentState.windMag = this.persistentState.round * Math.max(Math.random(), .25);

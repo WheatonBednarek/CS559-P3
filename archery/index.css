@@ -34,7 +34,7 @@ body {
 	justify-content: space-evenly;
 }
 
-#player1-score, #player2-score {
+#player1-score, #player2-score, #modal-player1-score, #modal-player2-score {
 	padding: .6rem;
 	border: 3px groove var(--background-color);
 }
@@ -55,4 +55,73 @@ body {
 
 #windDir {
 	font-size: 3em;
+	display: inline-block;
+}
+
+.blackout {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.55);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 999;
+}
+
+.modal {
+	background-color: var(--background-color);
+	border: 3px groove var(--background-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50vw;
+	height: 50vh;
+	text-align: center;
+	font-family: "Mulish", sans-serif;
+	font-size: 2rem;
+	color: var(--contrast-color);
+	gap: .6rem;
+}
+
+/* Style the text input inside the modal */
+#sendModal input[type="text"] {
+	width: 80%;
+	padding: .6rem 1rem;
+	font-size: 1.2rem;
+	color: var(--contrast-color);
+	background: rgba(255, 255, 255, 0.7);
+	border: 3px groove var(--contrast-color);
+	border-radius: 6px;
+}
+
+/* Style the button */
+#sendModal input[type="button"] {
+	padding: .6rem 1.2rem;
+	font-size: 1.3rem;
+	color: var(--contrast-color);
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.8) 0%,
+		rgba(200, 200, 200, 0.5) 100%
+	);
+	border: 3px groove var(--contrast-color);
+	border-radius: 8px;
+	cursor: pointer;
+	transition: 0.15s ease-in-out;
+}
+
+/* Hover and active state */
+#sendModal input[type="button"]:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.95) 0%,
+		rgba(220, 220, 220, 0.7) 100%
+	);
+}
+
+#sendModal input[type="button"]:active {
+	transform: scale(0.97);
 }

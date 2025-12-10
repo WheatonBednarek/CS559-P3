@@ -27,11 +27,22 @@
 				<span id="windMag">0.00</span>
 				Mph
 			</div>
-			<div id="windDir">0.00</div>
+			<div id="windDir">&#8593;</div>
 		</div>
 		<div id="player_turn">
 			Player <span id="player">1</span> Turn
 		</div>	
+	</div>
+	<div class="blackout" id="blackout" style="display: none;">
+		<div class="modal" id="sendModal">
+			<span>Round <span id="modal-round">0</span></span>
+			<div style="display: flex; flex-direction: row; gap: .6rem;">
+				<div id="modal-player1-score">0</div>
+				<div id="modal-player2-score">0</div>
+			</div>
+			<input id="modal-link" type="text" disabled value="ttt">
+			<input id="sendBtn" type="button" value="Send Game">
+		</div>
 	</div>
 </body>
 <script type="importmap">

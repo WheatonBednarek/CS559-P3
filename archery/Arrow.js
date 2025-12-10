@@ -99,9 +99,4 @@ export function shoot(xNorm, yNorm, world, windMag, windDir) {
 	arrow.object.position.add(pos);
 	state.shot(score);
 	world.addObject(arrow);
-	if(state.persistentState.currentPlayer === 1) {
-		document.getElementById("player").innerText = "1";
-	} else {
-		document.getElementById("player").innerText = "2";
-	}
 }
