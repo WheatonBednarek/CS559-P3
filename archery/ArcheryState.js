@@ -11,7 +11,8 @@ export class ArcheryState extends State {
 		player1Score: 0,
 		player2Score: 0,
 		windDir: 0,
-		windMag: 0
+		windMag: 0,
+		winningPlayer: ''
 	}
 
 	lazyState = {
@@ -28,10 +29,14 @@ export class ArcheryState extends State {
 				player1Score: 0,
 				player2Score: 0,
 				windDir: Math.random() * Math.PI * 2,
-				windMag: Math.random()
+				windMag: Math.random(),
+				winningPlayer: ''
 			}
 		}
 		this.onUpdate({...this.persistentState, ...this.lazyState});
+		// if(this.persistentState.round > 4) {
+		// 	setTimeout(() => document.getElementById('endGameModal').style.display= 'block', 500);
+		// }
 	}
 
 	encode() {
@@ -50,6 +55,12 @@ export class ArcheryState extends State {
 			this.lazyState.shots = 0;
 			if(this.persistentState.currentPlayer === 1) {
 				this.persistentState.round++;
+				if(this.persistentState.round > 3) {
+					this.persistentState.winningPlayer = this.persistentState.player1Score > this.persistentState.player2Score ? 'Player 1' : this.persistentState.player1Score < this.persistentState.player2Score ? 'Player 2' : 'Tie';
+					clearListeners();
+					setTimeout(() => document.getElementById('endGameModal').style.display= '', 1500);
+					return;
+				}
 			}
 			clearListeners();
 			setTimeout(() => document.getElementById('blackout').style.display= '', 1500);
