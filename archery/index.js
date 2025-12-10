@@ -62,8 +62,8 @@ document.getElementById("shareBtn").addEventListener("click", async () => {
     if (navigator.share) {
         try {
 			let message;
-			const myScore   = currentPlayer === 1 ? player1Score : player2Score;
-			const yourScore = currentPlayer === 1 ? player2Score : player1Score;
+			const myScore   = state.persistentState.currentPlayer === 1 ? state.persistentState.player1Score : state.persistentState.player2Score;
+			const yourScore = state.persistentState.currentPlayer === 1 ? state.persistentState.player2Score : state.persistentState.player1Score;
 			if (myScore > yourScore) {
 				message = "I won";
 			} else if (myScore < yourScore) {
