@@ -59,6 +59,7 @@ export class ArcheryState extends State {
 					this.persistentState.winningPlayer = this.persistentState.player1Score > this.persistentState.player2Score ? 'Player 1' : this.persistentState.player1Score < this.persistentState.player2Score ? 'Player 2' : 'Tie';
 					clearListeners();
 					setTimeout(() => document.getElementById('endGameModal').style.display= '', 1500);
+					this.onUpdate({...this.persistentState, ...this.lazyState});
 					return;
 				}
 			}

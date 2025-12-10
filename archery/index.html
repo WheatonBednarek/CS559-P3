@@ -46,8 +46,15 @@
 	</div>
 	<div id="endGameModal" class="blackout" style="display: none;">
 		<div class="modal">
-			<div id="endGameText">Player <span id="winningPlayer">X</span> Wins!</div>
-			<input id="restartBtn" type="button" value="Restart Game">
+			<div id="endGameText">Player X Wins!</div>
+			<div style="display: flex; flex-direction: row; gap: .6rem;">
+				<div id="end-player1-score">0</div>
+				<div id="end-player2-score">0</div>
+			</div>
+			<input id="shareBtn" type="button" value="Share Results">
+			<a href=".">
+				<input id="restartBtn" type="button" value="Restart Game">
+			</a>
 		</div>
 	</div>
 </body>

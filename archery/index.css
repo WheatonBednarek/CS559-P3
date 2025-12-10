@@ -34,7 +34,7 @@ body {
 	justify-content: space-evenly;
 }
 
-#player1-score, #player2-score, #modal-player1-score, #modal-player2-score {
+#player1-score, #player2-score, #modal-player1-score, #modal-player2-score, #end-player1-score, #end-player2-score {
 	padding: .6rem;
 	border: 3px groove var(--background-color);
 }
@@ -98,7 +98,7 @@ body {
 }
 
 /* Style the button */
-#sendModal input[type="button"] {
+.modal input[type="button"] {
 	padding: .6rem 1.2rem;
 	font-size: 1.3rem;
 	color: var(--contrast-color);
@@ -114,7 +114,7 @@ body {
 }
 
 /* Hover and active state */
-#sendModal input[type="button"]:hover {
+.modal input[type="button"]:hover {
 	background: linear-gradient(
 		180deg,
 		rgba(255, 255, 255, 0.95) 0%,
@@ -122,6 +122,6 @@ body {
 	);
 }
 
-#sendModal input[type="button"]:active {
+.modal input[type="button"]:active {
 	transform: scale(0.97);
 }
