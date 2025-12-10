@@ -18,7 +18,7 @@ export class Shooter extends WorldObject {
 		this.mouseDown = false;
 		this.mouseDownTime = -1;
 		this.timeout = -1;
-		document.onmousedown = event => {
+		document.addEventListener('pointerdown', event => {
 			this.currPos = { x: 0, y: 0 };
 			this.mouseDown = true;
 			this.mouseDownTime = Date.now();
@@ -26,29 +26,32 @@ export class Shooter extends WorldObject {
 				this.mouseDown = false;
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
 			}, Shooter.timeLimit);
-		}
-		const pixNorm = (window.innerHeight = window.innerWidth) / 10;
+			event.preventDefault();
+		});
+		const pixNorm = (window.innerHeight + window.innerWidth) / 10;
 
 		const movementModifier = 5;
-		document.onmousemove = event => {
+		document.addEventListener('pointermove', event => {
 			if (this.mouseDown) {
 				const timeElapsed = (Date.now() - this.mouseDownTime)/1000;
-				const mod = 1 / (2*timeElapsed + 1);
+				const mod = 1 / (3*timeElapsed + 1);
 				const relX = event.movementX / pixNorm;
 				const relY = event.movementY / pixNorm;
 				this.currPos.x += relX * mod;
 				this.currPos.y += -relY * mod;
 			}
-		}
+			event.preventDefault();
+		});
 
-		document.onmouseup = event => {
+		document.addEventListener('pointerup', event => {
 			if(this.mouseDown){
 				this.mouseDown = false;
 				shoot(this.currPos.x, this.currPos.y, world, Shooter.windMag, Shooter.windDir);
 				this.currPos = {x: 0, y: 0};
 				clearTimeout(this.timeout);
 			}
-		}
+			event.preventDefault();
+		});
 
 		const material = new THREE.MeshBasicMaterial({ color: 'black' });
 		const size = .05;

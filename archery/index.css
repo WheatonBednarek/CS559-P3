@@ -1,17 +1,19 @@
 body {
 	margin: 0px;
+	touch-action: none;
 }
 
 * {
 	--background-color: rgba(143, 180, 167, 0.626);
 	--contrast-color: rgb(172, 123, 0);
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 #topbar {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
-	gap: .6rem;
 	padding: .6rem;
 	background-color: var(--background-color);
 	border: 3px groove var(--background-color);
@@ -21,7 +23,7 @@ body {
 
 	text-align: center;
 	font-family: "Mulish", sans-serif;
-	font-size: 2rem;
+	font-size: 1rem;
 	color: var(--contrast-color);
 }
 
@@ -44,15 +46,13 @@ body {
 
 #windBox {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: space-evenly;
 	text-align: center;
-}
-
-#windSpeed {
-	font-size: 1.5rem;
+	align-items: center;
+	gap: .6rem;
 }
 
 #windDir {
-	font-size: 3rem;
+	font-size: 3em;
 }
