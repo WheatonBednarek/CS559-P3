@@ -50,7 +50,7 @@ state.registerOnUpdate(s => {
 });
 state.load(loadStateString());
 
-document.getElementById("sendBtn").addEventListener("click", async () => {
+document.getElementById("shareBtn").addEventListener("click", async () => {
     const link = document.getElementById("modal-link").value;
 
     try {
@@ -84,7 +84,7 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
     }
 });
 
-document.getElementById("shareBtn").addEventListener("click", async () => {
+document.getElementById("sendBtn").addEventListener("click", async () => {
     const link = document.getElementById("modal-link").value;
 
     try {
