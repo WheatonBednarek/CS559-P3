@@ -1,1 +1,1 @@
-export const LOAD_TEXTURES = true;
+export const LOAD_TEXTURES = localStorage.getItem("load_textures") === "true";

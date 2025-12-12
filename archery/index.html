@@ -59,6 +59,7 @@
 			</a>
 		</div>
 	</div>
+	<button id="toggleBtn" class="floating-btn">Toggle Textures</button>
 </body>
 <script type="importmap">
 	{
@@ -66,6 +67,33 @@
 			"three": "../node_modules/three/build/three.module.js"
 		}
 	}
+</script>
+<script>
+	const BTN = document.getElementById("toggleBtn");
+
+	// initialize the value if not set
+	if (localStorage.getItem("load_textures") === null) {
+		localStorage.setItem("load_textures", "true");
+	}
+
+	// update visual state
+	function updateButton() {
+		const value = localStorage.getItem("load_textures") === "true";
+		BTN.classList.toggle("active", value);
+		BTN.textContent = value ? "Basic textures" : "Complex textures";
+	}
+
+	// toggle logic
+	BTN.addEventListener("click", () => {
+		const current = localStorage.getItem("load_textures") === "true";
+		const newValue = !current;
+
+		localStorage.setItem("load_textures", String(newValue));
+		window.location.reload();
+	});
+
+	// set initial state on load
+	updateButton();
 </script>
 <script src="index.js" type="module"></script>
 </html>
